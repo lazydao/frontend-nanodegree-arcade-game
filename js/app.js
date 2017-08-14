@@ -24,7 +24,23 @@ Enemy.prototype.render = function() {
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
+var Player = function() {
+    Enemy.call(this);
+    Player.prototype = Object.create(Enemy.prototype);
+};
 
+Player.prototype.handleInput = function(dir) {
+    if (dir==='left')
+        if (this.x>101)
+            this.x = this.x - 101;
+    if (dir==='up')
+        this.y = this.y+83;
+    if (dir==='right')
+        this.x = this.x+101;
+    if (dir==='down')
+        if (this.y>83)
+            this.y = this.y-83;
+};
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
