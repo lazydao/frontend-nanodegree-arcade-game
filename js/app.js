@@ -5,14 +5,14 @@ var Enemy = function() {
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
-    this.speed = Myrandom()*101;
+    this.speed = Myrandom(3)*101;
     this.x = -101;
-    this.y = Myrandom()*83-20;
+    this.y = Myrandom(3)*83-20;
 };
 
-var Myrandom = function() {
+var Myrandom = function(m) {
     var num = Math.random();
-    num = Math.ceil(num*3);
+    num = Math.ceil(num*m);
     return num;
 }
 
@@ -26,9 +26,9 @@ Enemy.prototype.update = function(dt) {
         this.x = this.x + dt*this.speed;
     }
     else {
-        this.speed = Myrandom()*101;
+        this.speed = Myrandom(3)*101;
         this.x = -101;
-        this.y = (Myrandom()*83)-20;
+        this.y = (Myrandom(3)*83)-20;
     };        
 };
 
@@ -36,6 +36,8 @@ Enemy.prototype.update = function(dt) {
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
+
+var chars = ['images/char-boy.png', 'images/char-cat-girl.png', 'images/char-horn-girl.png', 'images/char-pink-girl.png', 'images/char-princess-girl.png']
 
 // Now write your own player class
 // This class requires an update(), render() and
@@ -45,7 +47,8 @@ var Player = function() {
     Player.prototype = Object.create(Enemy.prototype);
     this.x = 2*101;
     this.y = 5*83-20;
-    this.sprite = 'images/char-boy.png';
+    this.sprite = chars[Myrandom(5)-1]
+    console.log(this.sprite);
 };
 
 Player.prototype.update = function(){
@@ -56,6 +59,8 @@ Player.prototype.update = function(){
                 console.log('x=');
                 this.x = 2*101;
                 this.y = 5*83-20;
+                this.sprite = chars[Myrandom(5)-1]
+                console.log(this.sprite);
             }          
         }
     };
@@ -79,6 +84,8 @@ Player.prototype.handleInput = function(dir) {
             alert("you win!")
             this.y = 5*83-20;
             this.x = 2*101;
+            this.sprite = chars[Myrandom(5)-1]
+            console.log(this.sprite);
         }
 };
 
